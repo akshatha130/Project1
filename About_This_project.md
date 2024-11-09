@@ -1,7 +1,7 @@
-Aims:
--->This project focuses on adding a visual layer of neon glow lines to dance videos. ​✨
--->The neon glow highlights various aspects of the dance such as body movements, gestures, hand and leg motions.​
--->The primary aim is to enhance the viewer's experience by making key dance elements stand out visually. ​
+Aims:                                                                                
+-->This project focuses on adding a visual layer of neon glow lines to dance videos. ​✨                       
+-->The neon glow highlights various aspects of the dance such as body movements, gestures, hand and leg motions.​              
+-->The primary aim is to enhance the viewer's experience by making key dance elements stand out visually. ​           
 -->It aims to make dance moves more expressive and accessible.​
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Objectives:
