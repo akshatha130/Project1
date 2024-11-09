@@ -3,8 +3,8 @@ The neon glow highlights various aspects of the dance such as body movements, ge
 The primary aim is to enhance the viewer's experience by making key dance elements stand out visually. ​
 It aims to make dance moves more expressive and accessible.​
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------
-🌟 Enhance Dance Videos : Using neon glow lines to highlight specific dance movements.​
-🌟 Highlight Body Movements : Emphasize hand and leg movements.​
+🌟 Enhance Dance Videos : Using neon glow lines to highlight specific dance movements.​     
+🌟 Highlight Body Movements : Emphasize hand and leg movements.​                      
 🌟 Improve Viewer Engagement : Make it easier for the audience to follow and appreciate complex choreography.​
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Neon Glow Lines: Dynamic neon lines that trace the dancer’s movements.​ ✨
