@@ -3,6 +3,15 @@ import mediapipe as mp
 import numpy as np
 import random
 import time
+import pygame
+
+# Initialize pygame mixer for audio
+pygame.mixer.init()
+
+# Load audio file
+audio_path = r'C:\Aksatha_College\python\Python Program\Io\audio1.mp3'
+pygame.mixer.music.load(audio_path)
+pygame.mixer.music.play(-1, 0.0)  # Loop audio indefinitely
 
 # Initialize MediaPipe Pose, Hands, and FaceMesh
 mp_pose = mp.solutions.pose
@@ -14,22 +23,17 @@ hand_tracker = mp_hands.Hands(static_image_mode=False, max_num_hands=2, min_dete
 face_mesh = mp_face_mesh.FaceMesh(static_image_mode=False, max_num_faces=2)
 
 # Video file path
-video_path = r'C:\Aksatha_College\python\Python Program\Io\video4.mp4'
+video_path = r'C:\Aksatha_College\python\Python Program\Io\video.mp4'
 cap = cv2.VideoCapture(video_path)
 
 canvas = None
 color_palette = [(255, 182, 193), (255, 105, 180), (0, 255, 255), (255, 20, 147), (240, 128, 128)]
 color_index = 0
 
-# Define Face Outline Landmarks
-FACE_OUTLINE_LANDMARKS = [
-    10, 338, 297, 332, 284, 251, 389, 356, 454, 323, 361, 288, 397, 365, 379, 378, 400, 377, 152
-]
-
-# Timer for Artistic Effects
+# this to give the Timer for Artistic Effects
 artistic_effect_time = 0.3  # seconds for time interval effect duration
 
-# Artistic Effect Variables
+# to sttore the Artistic Effect Variables
 sparkle_start_time = time.time()
 sparkle_duration = 0.2  # seconds
 sparkle_size = 5
@@ -53,13 +57,13 @@ while cap.isOpened():
     if pose_results.pose_landmarks:
         landmarks = pose_results.pose_landmarks.landmark
 
-        # Define bounding box for person ROI
+        # Define bounding box for person ROI iff there are more people
         x_min = int(min([landmarks[mp_pose.PoseLandmark.LEFT_SHOULDER].x, landmarks[mp_pose.PoseLandmark.RIGHT_SHOULDER].x]) * frame.shape[1]) - 50
         x_max = int(max([landmarks[mp_pose.PoseLandmark.LEFT_HIP].x, landmarks[mp_pose.PoseLandmark.RIGHT_HIP].x]) * frame.shape[1]) + 50
         y_min = int(min([landmarks[mp_pose.PoseLandmark.LEFT_SHOULDER].y, landmarks[mp_pose.PoseLandmark.RIGHT_SHOULDER].y]) * frame.shape[0]) - 50
         y_max = int(max([landmarks[mp_pose.PoseLandmark.LEFT_HIP].y, landmarks[mp_pose.PoseLandmark.RIGHT_HIP].y]) * frame.shape[0]) + 50
 
-        # Artistic Effect: Fluid Curved Lines on Legs
+        #Curved circle on Legs
         for landmark in [mp_pose.PoseLandmark.LEFT_ANKLE, mp_pose.PoseLandmark.RIGHT_ANKLE]:
             point = landmarks[landmark]
             x = int(point.x * frame.shape[1])
@@ -75,7 +79,7 @@ while cap.isOpened():
         # Extract region of interest for hand tracking
         person_roi = frame_rgb[y_min:y_max, x_min:x_max]
 
-        # Run hand detection on the ROI
+        # To Run hand detection on the ROI
         hand_results = hand_tracker.process(person_roi)
         if hand_results.multi_hand_landmarks:
             for hand_landmarks in hand_results.multi_hand_landmarks:
@@ -86,13 +90,13 @@ while cap.isOpened():
                     cv2.circle(overlay, (x, y), 10, color, -1)
 
         # Draw glowing geometric patterns
-        if random.random() < 0.05:  # Add patterns at random intervals
+        if random.random() < 0.05:  #This is to Add patterns at random intervals
             shape_center = (random.randint(0, frame.shape[1]), random.randint(0, frame.shape[0]))
             size = random.randint(20, 100)
             color = random.choice(color_palette)
             thickness = random.randint(2, 5)
 
-            # Create circles or polygons
+            # Create circles or polygons at random with random shapes 
             if random.random() < 0.5:
                 cv2.circle(overlay, shape_center, size, color, thickness)
             else:
@@ -104,7 +108,7 @@ while cap.isOpened():
                     vertices.append((x, y))
                 cv2.polylines(overlay, [np.array(vertices)], isClosed=True, color=color, thickness=thickness)
 
-        # Fun: Sparkles on screen
+        # Sparkles on screen to make it look more asethtic
         if time.time() - sparkle_start_time > sparkle_duration:
             sparkle_start_time = time.time()
             sparkle_x = random.randint(0, frame.shape[1])
@@ -113,7 +117,7 @@ while cap.isOpened():
             sparkle_radius = random.randint(3, 8)
             cv2.circle(overlay, (sparkle_x, sparkle_y), sparkle_radius, sparkle_color, -1)
 
-    # Combine overlay with canvas for trail effect
+    # Combine overlay outputwith canvas 
     canvas = cv2.addWeighted(canvas, 0.85, overlay, 0.6, 0)
     blurred_canvas = cv2.GaussianBlur(canvas, (21, 21), 0)
     combined = cv2.addWeighted(frame, 0.6, blurred_canvas, 0.4, 0)
@@ -130,3 +134,4 @@ cv2.destroyAllWindows()
 pose.close()
 hand_tracker.close()
 face_mesh.close()
+pygame.mixer.music.stop()  # Stop the audio when done
