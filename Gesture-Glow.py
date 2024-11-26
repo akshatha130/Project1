@@ -9,7 +9,7 @@ import pygame
 pygame.mixer.init()
 
 # Load audio file
-audio_path = r'C:\Aksatha_College\python\Python Program\Io\audio1.mp3'
+audio_path = r'C:\Aksatha\python\Python Program\Io\audio1.mp3' #change this to your audio file link
 pygame.mixer.music.load(audio_path)
 pygame.mixer.music.play(-1, 0.0)  # Loop audio indefinitely
 
@@ -23,7 +23,7 @@ hand_tracker = mp_hands.Hands(static_image_mode=False, max_num_hands=2, min_dete
 face_mesh = mp_face_mesh.FaceMesh(static_image_mode=False, max_num_faces=2)
 
 # Video file path
-video_path = r'C:\Aksatha_College\python\Python Program\Io\video.mp4'
+video_path = r'C:\Aksatha\python\Python Program\Io\video.mp4' #Change this to your Video File link
 cap = cv2.VideoCapture(video_path)
 
 canvas = None
